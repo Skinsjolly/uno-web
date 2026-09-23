@@ -18,12 +18,17 @@ function makePgStore(databaseUrl) {
       `)
     },
     async createUser(username, passwordHash) {
-      const r = await pool.query(
-        'INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id, username',
-        [username, passwordHash],
-      )
-      const u = r.rows[0]
-      return { id: String(u.id), username: u.username }
+      try {
+        const r = await pool.query(
+          'INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id, username',
+          [username, passwordHash],
+        )
+        const u = r.rows[0]
+        return { id: String(u.id), username: u.username }
+      } catch (e) {
+        if (e && e.code === '23505') throw new Error('username_taken')
+        throw e
+      }
     },
     async findByName(username) {
       const r = await pool.query(
