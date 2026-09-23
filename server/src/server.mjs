@@ -155,7 +155,9 @@ export async function startServer(port = PORT) {
     if (url.pathname === '/api/me' && req.method === 'GET') {
       const auth = req.headers.authorization || ''
       const user = verifyToken(auth.replace(/^Bearer /i, ''))
-      return user ? json(res, 200, { user }) : json(res, 401, { error: 'unauthorized' })
+      return user
+        ? json(res, 200, { user: { id: user.id, username: user.name } })
+        : json(res, 401, { error: 'unauthorized' })
     }
     // static client (local dev; production serves this from Cloudflare Pages)
     return serveStatic(req, res)
