@@ -1,0 +1,20 @@
+{
+  "name": "uno-web-server",
+  "version": "0.1.0",
+  "description": "UNO web server: Luau engine (WASM) + WebSocket bridge + JWT auth + Postgres",
+  "type": "module",
+  "main": "src/server.mjs",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs",
+    "test": "node ../test/e2e.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "luau-web": "^1.4.0",
+    "pg": "^8.23.0",
+    "ws": "^8.21.3"
+  }
+}

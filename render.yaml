@@ -1,0 +1,24 @@
+# Render blueprint for the UNO web backend.
+# Blueprint URL: https://render.com/new?blueprint=https://repo.example.com/render.yaml
+services:
+  - type: web
+    name: uno-web-server
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node src/server.mjs
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: uno-web-db
+          property: connectionString
+
+databases:
+  - name: uno-web-db
+    databaseName: uno
+    user: uno

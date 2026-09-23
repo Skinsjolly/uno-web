@@ -1,0 +1,13 @@
+{
+  "name": "uno-web",
+  "version": "0.1.0",
+  "description": "UNO web — port of the Roblox UNO project to the browser",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix server start",
+    "test": "node test/e2e.mjs"
+  },
+  "devDependencies": {
+    "ws": "^8.21.3"
+  }
+}
